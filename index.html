@@ -25,9 +25,9 @@ ul{list-style:none}
   --bg:        #08080a;
   --surf:      #0f0f12;
   --line:      rgba(255,255,255,.07);
-  --muted:     #4a4a52;
-  --dim:       #9898a0;
-  --text:      #dddde0;
+  --muted:     #7a7a88;
+  --dim:       #b4b4be;
+  --text:      #e8e8ec;
   --white:     #ffffff;
   --serif:     'Cormorant', Georgia, serif;
   --sans:      'Geist', sans-serif;
@@ -77,7 +77,7 @@ ul{list-style:none}
 .nav-links a{
   font-size:.68rem;font-weight:400;
   letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted);transition:color .25s;
+  color:rgba(255,255,255,.55);transition:color .25s;
 }
 .nav-links a:hover{color:var(--white)}
 .nav-links .talk{
@@ -462,6 +462,31 @@ ul{list-style:none}
 .psi-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:block}
 .psi-title{font-family:var(--serif);font-size:1.4rem;font-weight:300;color:var(--white);line-height:1.2}
 .psi-sub{font-size:.8rem;color:var(--muted);margin-top:8px}
+/* Fynshoved Grill side card */
+.proj-side-item--grill{
+  position:relative;
+}
+.psi-bg-img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center;
+  filter:brightness(.28) saturate(.55) grayscale(30%);
+  transition:filter .6s, transform .6s;
+  z-index:0;
+  pointer-events:none;
+}
+.proj-side-item--grill:hover .psi-bg-img{
+  filter:brightness(.4) saturate(.7) grayscale(10%);
+  transform:scale(1.04);
+}
+.proj-side-item--grill .psi-label,
+.proj-side-item--grill .psi-title,
+.proj-side-item--grill .psi-sub,
+.proj-side-item--grill .coming-soon{
+  position:relative;z-index:1;
+}
+
 /* Coming soon badge */
 .coming-soon{
   display:inline-block;
@@ -662,7 +687,46 @@ footer{
 .ov-x::after{transform:translateY(-50%) rotate(-45deg)}
 
 .ov-body{flex:1;padding:80px 60px}
-.ov-intro{margin-bottom:80px}
+.ov-intro{margin-bottom:48px}
+
+/* Stats bar */
+.ov-stats{
+  display:flex;align-items:center;
+  border:1px solid var(--line);
+  background:var(--surf);
+  margin-bottom:56px;
+  padding:0;
+}
+.ov-stat{
+  flex:1;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:8px;
+  padding:32px 24px;
+}
+.ov-stat-val{
+  font-family:var(--serif);
+  font-size:2.8rem;font-weight:300;
+  color:var(--white);line-height:1;
+  letter-spacing:-.01em;
+}
+.ov-stat-label{
+  font-size:.58rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--muted);
+}
+.ov-stat-divider{
+  width:1px;height:60px;
+  background:var(--line);
+  flex-shrink:0;
+}
+
+@media(max-width:768px){
+  .ov-stats{flex-direction:column}
+  .ov-stat{padding:24px 20px}
+  .ov-stat-divider{width:100%;height:1px}
+}
+
+
 .ov-intro h2{
   font-family:var(--serif);
   font-size:clamp(2.5rem,5vw,5.5rem);
@@ -1062,8 +1126,8 @@ footer{
         <div class="av-inner">
           <div class="av-year">2026</div>
           <div class="av-stat">
-            <div class="av-n">1</div>
-            <div class="av-l">Project delivered</div>
+            <div class="av-n">2</div>
+            <div class="av-l">Projects delivered</div>
           </div>
         </div>
       </div>
@@ -1153,11 +1217,12 @@ footer{
         <span class="proj-num">01</span>
       </div>
       <div class="proj-side">
-        <div class="proj-side-item" onclick="openProjectsOverlay()">
-          <span class="psi-label">Coming next</span>
-          <div class="psi-title">Your Project</div>
-          <p class="psi-sub">Ready to be number two?</p>
-          <a href="#contact" class="coming-soon" onclick="event.stopPropagation()">Get in touch →</a>
+        <div class="proj-side-item proj-side-item--grill" onclick="openProjectsOverlay()">
+          <img class="psi-bg-img" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=85&auto=format&fit=crop" alt="Fynshoved Grill" loading="lazy" />
+          <span class="psi-label">Restaurant · 2026</span>
+          <div class="psi-title">Fynshoved Grill</div>
+          <p class="psi-sub">Where the smoke meets the sea.</p>
+          <span class="coming-soon" style="border-color:rgba(255,255,255,.12);color:rgba(200,180,140,.6)">View project →</span>
         </div>
         <div class="proj-side-item" onclick="openProjectsOverlay()">
           <span class="psi-label">Pipeline</span>
@@ -1282,12 +1347,12 @@ footer{
       </div>
       <div class="form">
         <div class="fg-row">
-          <div class="fg"><label>Name</label><input type="text" placeholder="Your name" id="fname"/></div>
-          <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com" id="femail"/></div>
+          <div class="fg"><label>Name</label><input type="text" placeholder="Your name" id="fname" name="name"/></div>
+          <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com" id="femail" name="email"/></div>
         </div>
         <div class="fg">
           <label>Service</label>
-          <select>
+          <select name="service">
             <option value="">What do you need?</option>
             <option>New website</option>
             <option>Webshop</option>
@@ -1295,7 +1360,7 @@ footer{
             <option>Not sure yet</option>
           </select>
         </div>
-        <div class="fg"><label>Message</label><textarea placeholder="Tell us about your project…"></textarea></div>
+        <div class="fg"><label>Message</label><textarea placeholder="Tell us about your project…" name="message"></textarea></div>
         <button class="f-submit" id="fsub">Send message</button>
       </div>
     </div>
@@ -1326,8 +1391,26 @@ footer{
   <div class="ov-body">
     <div class="ov-intro">
       <h2>Every project<br><em>we've built.</em></h2>
-      <p>We're a new studio. One project delivered, more on the way. Every single one matters to us.</p>
+      <p>We're a new studio. Two projects delivered, more on the way. Every single one matters to us.</p>
     </div>
+    <!-- STATS BAR -->
+    <div class="ov-stats">
+      <div class="ov-stat">
+        <span class="ov-stat-val">2</span>
+        <span class="ov-stat-label">Live Websites</span>
+      </div>
+      <div class="ov-stat-divider"></div>
+      <div class="ov-stat">
+        <span class="ov-stat-val">0</span>
+        <span class="ov-stat-label">Ongoing Projects</span>
+      </div>
+      <div class="ov-stat-divider"></div>
+      <div class="ov-stat">
+        <span class="ov-stat-val">2</span>
+        <span class="ov-stat-label">Total Happy Clients</span>
+      </div>
+    </div>
+
     <div class="ov-grid">
 
       <!-- PROJECT 01 — REAL -->
@@ -1350,21 +1433,23 @@ footer{
         </div>
       </div>
 
-      <!-- PROJECT 02 — FUTURE -->
-      <div class="ov-proj future">
+      <!-- PROJECT 02 — FYNSHOVED GRILL -->
+      <div class="ov-proj">
         <div class="op-num">02</div>
         <div class="op-info">
-          <p class="op-tag">Webshop · In progress</p>
-          <h3 class="op-title">Upcoming: E-commerce Build</h3>
-          <p class="op-desc">Our next project — a full e-commerce store. Details to follow on launch.</p>
+          <p class="op-tag">Restaurant · Website · 2026</p>
+          <h3 class="op-title">Fynshoved Grill</h3>
+          <p class="op-desc">A full website for a beloved local grill on the tip of Funen — where the smoke meets the sea. Designed to feel as warm and unpretentious as the food itself. Clean layout, mouth-watering presentation, and a digital identity that finally does the place justice.</p>
           <div class="op-tags">
-            <span class="op-pill">E-commerce</span>
-            <span class="op-pill">Webshop</span>
+            <span class="op-pill">Design</span>
+            <span class="op-pill">Development</span>
+            <span class="op-pill">Restaurant</span>
+            <span class="op-pill">Responsive</span>
           </div>
         </div>
         <div class="op-right">
           <p class="op-year">2026</p>
-          <p class="op-status">● Coming soon</p>
+          <p class="op-status live">● Live</p>
         </div>
       </div>
 
@@ -1504,22 +1589,50 @@ document.addEventListener('keydown', e => {
 });
 
 /* ─── FORM ─────────────────────────────── */
-$('#fsub').addEventListener('click', function(){
-  const n = $('#fname').value.trim();
-  const e = $('#femail').value.trim();
-  if(!n||!e){
-    gsap.to(this, {
+$('#fsub').addEventListener('click', async function(){
+  const btn = this;
+  const name    = $('#fname').value.trim();
+  const email   = $('#femail').value.trim();
+  const service = document.querySelector('.form select').value;
+  const message = document.querySelector('.form textarea').value.trim();
+
+  if(!name || !email){
+    gsap.to(btn, {
       keyframes:[{x:-8},{x:8},{x:-5},{x:5},{x:0}],
       duration:.4, ease:'power1.inOut'
     });
-    this.textContent='Fill in name & email';
-    this.style.background='#3f1f1f';this.style.color='#dddde0';
-    setTimeout(()=>{ this.textContent='Send message';this.style.background='';this.style.color=''; },2400);
+    btn.textContent='Fill in name & email';
+    btn.style.background='#3f1f1f'; btn.style.color='#dddde0';
+    setTimeout(()=>{ btn.textContent='Send message'; btn.style.background=''; btn.style.color=''; }, 2400);
     return;
   }
-  this.textContent='Sent ✓';
-  this.style.background='#182b22';this.style.color='#dddde0';
-  setTimeout(()=>{ this.textContent='Send message';this.style.background='';this.style.color=''; },3200);
+
+  btn.textContent='Sending…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/mrewqwav', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, service, message })
+    });
+
+    if(res.ok){
+      btn.textContent='Sent ✓';
+      btn.style.background='#182b22'; btn.style.color='#dddde0';
+      $('#fname').value=''; $('#femail').value='';
+      document.querySelector('.form select').value='';
+      document.querySelector('.form textarea').value='';
+      setTimeout(()=>{ btn.textContent='Send message'; btn.style.background=''; btn.style.color=''; btn.disabled=false; }, 3200);
+    } else {
+      throw new Error('Failed');
+    }
+  } catch(err){
+    btn.textContent='Something went wrong — try again';
+    btn.style.background='#3f1f1f'; btn.style.color='#dddde0';
+    btn.disabled = false;
+    setTimeout(()=>{ btn.textContent='Send message'; btn.style.background=''; btn.style.color=''; }, 3000);
+  }
 });
 
 /* ─── SMOOTH SCROLL ─────────────────────────────── */
