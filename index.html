@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPGSTCNE0H"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -22,7 +22,7 @@
 /* ─── RESET ─────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;scroll-behavior:auto}
-body{background:#08080a;color:#dddde0;font-family:'Geist',sans-serif;overflow-x:hidden;line-height:1.6}
+body{background:#08080a;color:#e8e8ea;font-family:'Geist',sans-serif;overflow-x:hidden;line-height:1.6}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
 ::-webkit-scrollbar{width:2px}
@@ -33,11 +33,12 @@ ul{list-style:none}
 :root{
   --bg:        #08080a;
   --surf:      #0f0f12;
-  --line:      rgba(255,255,255,.07);
-  --muted:     #4a4a52;
-  --dim:       #9898a0;
-  --text:      #dddde0;
+  --line:      rgba(255,255,255,.09);
+  --muted:     #8a8a94;
+  --dim:       #b4b4bd;
+  --text:      #e8e8ea;
   --white:     #ffffff;
+  --accent:    #8fb4ff;
   --serif:     'Cormorant', Georgia, serif;
   --sans:      'Geist', sans-serif;
 }
@@ -157,7 +158,7 @@ ul{list-style:none}
   display:flex;align-items:center;gap:14px;
   margin-bottom:24px;opacity:0;
 }
-.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--muted);display:block}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--accent);display:block}
 .hero-h1{
   font-family:var(--serif);
   font-size:clamp(3.8rem,8vw,9.5rem);
@@ -234,7 +235,7 @@ ul{list-style:none}
   display:flex;align-items:center;gap:14px;
   margin-bottom:20px;
 }
-.eyebrow::before{content:'';width:22px;height:1px;background:var(--muted);display:block}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--accent);display:block}
 .big-h{
   font-family:var(--serif);
   font-size:clamp(2.4rem,4.5vw,5rem);
@@ -471,6 +472,19 @@ ul{list-style:none}
 .psi-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:block}
 .psi-title{font-family:var(--serif);font-size:1.4rem;font-weight:300;color:var(--white);line-height:1.2}
 .psi-sub{font-size:.8rem;color:var(--muted);margin-top:8px}
+.psi-photo{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  filter:brightness(.22) saturate(.5);
+  transition:filter .6s, transform .6s;
+  z-index:0;
+}
+.proj-side-item:hover .psi-photo{filter:brightness(.32) saturate(.6);transform:scale(1.03)}
+.proj-side-item .psi-label,
+.proj-side-item .psi-title,
+.proj-side-item .psi-sub,
+.proj-side-item .coming-soon{position:relative;z-index:1}
 /* Coming soon badge */
 .coming-soon{
   display:inline-block;
@@ -1071,8 +1085,8 @@ footer{
         <div class="av-inner">
           <div class="av-year">2026</div>
           <div class="av-stat">
-            <div class="av-n">1</div>
-            <div class="av-l">Project delivered</div>
+            <div class="av-n">2</div>
+            <div class="av-l">Projects delivered</div>
           </div>
         </div>
       </div>
@@ -1163,16 +1177,17 @@ footer{
       </div>
       <div class="proj-side">
         <div class="proj-side-item" onclick="openProjectsOverlay()">
-          <span class="psi-label">Coming next</span>
-          <div class="psi-title">Your Project</div>
-          <p class="psi-sub">Ready to be number two?</p>
-          <a href="#contact" class="coming-soon" onclick="event.stopPropagation()">Get in touch →</a>
+          <img class="psi-photo" src="https://images.unsplash.com/photo-1544025162-d76694265947?w=900&q=85&auto=format&fit=crop" alt="Fynshovedgrill project" loading="lazy" />
+          <span class="psi-label">Live now</span>
+          <div class="psi-title">Fynshovedgrill</div>
+          <p class="psi-sub">Grill &amp; minigolf on Fyn<br>Full website build, now live.</p>
+          <span class="coming-soon">2026 →</span>
         </div>
         <div class="proj-side-item" onclick="openProjectsOverlay()">
-          <span class="psi-label">Pipeline</span>
-          <div class="psi-title">More coming soon</div>
-          <p class="psi-sub">We're just getting started.</p>
-          <span class="coming-soon">2026 →</span>
+          <span class="psi-label">Coming next</span>
+          <div class="psi-title">Your Project</div>
+          <p class="psi-sub">Ready to be number three?</p>
+          <a href="#contact" class="coming-soon" onclick="event.stopPropagation()">Get in touch →</a>
         </div>
       </div>
     </div>
@@ -1335,7 +1350,7 @@ footer{
   <div class="ov-body">
     <div class="ov-intro">
       <h2>Every project<br><em>we've built.</em></h2>
-      <p>We're a new studio. One project delivered, more on the way. Every single one matters to us.</p>
+      <p>We're a new studio. Two projects delivered, more on the way. Every single one matters to us.</p>
     </div>
     <div class="ov-grid">
 
@@ -1359,9 +1374,28 @@ footer{
         </div>
       </div>
 
-      <!-- PROJECT 02 — FUTURE -->
-      <div class="ov-proj future">
+      <!-- PROJECT 02 — REAL -->
+      <div class="ov-proj">
         <div class="op-num">02</div>
+        <div class="op-info">
+          <p class="op-tag">Website · Full Build · 2026</p>
+          <h3 class="op-title">Fynshovedgrill</h3>
+          <p class="op-desc">A clean, fast website for a grill &amp; minigolf destination on Fyn — built to be simple for guests to browse and easy for the owners to keep up to date.</p>
+          <div class="op-tags">
+            <span class="op-pill">Design</span>
+            <span class="op-pill">Development</span>
+            <span class="op-pill">Responsive</span>
+          </div>
+        </div>
+        <div class="op-right">
+          <p class="op-year">2026</p>
+          <p class="op-status live">● Live</p>
+        </div>
+      </div>
+
+      <!-- PROJECT 03 — FUTURE -->
+      <div class="ov-proj future">
+        <div class="op-num">03</div>
         <div class="op-info">
           <p class="op-tag">Webshop · In progress</p>
           <h3 class="op-title">Upcoming: E-commerce Build</h3>
@@ -1379,7 +1413,7 @@ footer{
 
       <!-- OPEN SLOT -->
       <div class="ov-proj future" id="ov-cta-row" style="cursor:pointer" onclick="closeOverlay();setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),400)">
-        <div class="op-num">03</div>
+        <div class="op-num">04</div>
         <div class="op-info">
           <p class="op-tag">Your project · 2026</p>
           <h3 class="op-title">This could be you.</h3>
