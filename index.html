@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#050506"/>
+<meta name="color-scheme" content="dark"/>
 <title>Nordic Interface — Web Design Studio</title>
 <meta name="description" content="Nordic Interface — a Copenhagen web design studio. We design and hand-code websites and webshops for companies that want to stand out."/>
 
@@ -24,7 +26,20 @@ button{font-family:inherit}
 ::-webkit-scrollbar{width:2px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:#3a3a42}
-:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+ :focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+/* Small polish: clearer interactions, better mobile form usability, and anchor spacing. */
+section[id]{scroll-margin-top:92px}
+button,a{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.pcard{transition:border-color .28s ease,transform .28s ease,background-color .28s ease}
+.pcard:hover{transform:translateY(-3px);border-color:rgba(127,217,255,.3)}
+.svc,.member,.step{transition:border-color .28s ease,background-color .28s ease}
+.svc:hover,.member:hover,.step:hover{border-color:rgba(127,217,255,.22)}
+.form input:not([type="checkbox"]),.form select,.form textarea{font-size:16px}
+.form input:focus,.form select:focus,.form textarea:focus{border-color:rgba(127,217,255,.6);box-shadow:0 0 0 3px rgba(127,217,255,.06);outline:none}
+.f-submit:disabled{opacity:.65;cursor:wait}
+::selection{background:rgba(127,217,255,.85);color:#050506}
+@media(max-width:768px){section[id]{scroll-margin-top:76px}.pcard:hover{transform:none}}
 
 /* ══════════════════ TOKENS ══════════════════ */
 :root{
@@ -306,6 +321,29 @@ footer{background:var(--surf);border-top:1px solid var(--line);padding:32px 60px
 .drawer-links a{font-family:var(--serif);font-size:clamp(2rem,10vw,3.2rem);font-weight:300;color:var(--white);letter-spacing:.04em;padding:12px 0;border-bottom:1px solid var(--line);width:100%;text-align:center;transform:translateY(30px);opacity:0}
 .drawer-footer{margin-top:48px;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:center;transform:translateY(20px);opacity:0}
 
+
+/* ══════════════════ PROJECT DETAIL MODAL ══════════════════ */
+#project-detail{position:fixed;inset:0;z-index:2200;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(3,3,5,.78);backdrop-filter:blur(16px);opacity:0;pointer-events:none;visibility:hidden;transition:opacity .28s,visibility .28s}
+#project-detail.open{opacity:1;pointer-events:auto;visibility:visible}
+.pd-panel{width:min(980px,100%);max-height:min(88vh,900px);overflow:auto;background:var(--surf);border:1px solid var(--line);box-shadow:0 30px 100px rgba(0,0,0,.5);transform:translateY(18px) scale(.985);transition:transform .35s cubic-bezier(.2,.75,.25,1);position:relative}
+#project-detail.open .pd-panel{transform:translateY(0) scale(1)}
+.pd-top{display:flex;align-items:center;justify-content:space-between;padding:22px 30px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(12,12,15,.94);backdrop-filter:blur(16px);z-index:2}
+.pd-kicker,.pd-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.pd-close{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:transparent;color:var(--white);padding:10px 13px;cursor:pointer;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;transition:border-color .2s,background .2s}
+.pd-close:hover{border-color:var(--white);background:rgba(255,255,255,.04)}
+.pd-main{padding:clamp(28px,5vw,58px)}
+.pd-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:start;padding-bottom:32px;border-bottom:1px solid var(--line)}
+.pd-title{font-family:var(--serif);font-size:clamp(2.5rem,6vw,5rem);font-weight:300;line-height:1;letter-spacing:-.035em;color:var(--white);margin:12px 0 18px}
+.pd-summary{max-width:600px;color:var(--dim);font-size:.92rem;line-height:1.9}
+.pd-status{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#6ee7b7;border:1px solid rgba(110,231,183,.25);padding:9px 12px;white-space:nowrap;margin-top:8px}
+.pd-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:28px 0 44px}
+.pd-stat{background:var(--surf);padding:18px 20px}.pd-stat strong{display:block;font-family:var(--serif);font-size:1.1rem;font-weight:300;color:var(--white);margin-top:8px}.pd-section-title{font-family:var(--serif);font-size:1.75rem;font-weight:300;color:var(--white);margin:0 0 12px}.pd-copy{font-size:.84rem;line-height:1.9;color:var(--muted);max-width:700px}
+.pd-lower{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:42px}
+.pd-timeline{display:flex;flex-direction:column;margin-top:24px}.pd-phase{display:grid;grid-template-columns:34px 1fr;gap:14px;position:relative;padding-bottom:24px}.pd-phase:not(:last-child):before{content:'';position:absolute;left:12px;top:26px;bottom:0;width:1px;background:var(--line)}.pd-dot{width:25px;height:25px;border:1px solid var(--accent);border-radius:50%;display:grid;place-items:center;color:var(--accent);font-family:var(--mono);font-size:.58rem;background:var(--surf);z-index:1}.pd-phase h4{font-size:.82rem;color:var(--white);font-weight:500;margin:3px 0 7px}.pd-phase p{font-size:.75rem;color:var(--muted);line-height:1.75;margin:0}.pd-features{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.pd-feature{font-family:var(--mono);font-size:.57rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);padding:9px 11px;color:var(--dim)}
+.pd-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:28px;margin-top:40px;border-top:1px solid var(--line)}.pd-footer p{font-size:.75rem;color:var(--muted);line-height:1.7;margin:0}.pd-contact{display:inline-flex;align-items:center;gap:12px;color:var(--white);text-decoration:none;border-bottom:1px solid var(--accent);padding:10px 0;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.pcard[role="button"],.ov-proj[data-project]{cursor:pointer}.pcard[role="button"]:focus-visible,.ov-proj[data-project]:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+@media(max-width:650px){#project-detail{padding:10px}.pd-top{padding:16px 18px}.pd-main{padding:24px 20px}.pd-heading{grid-template-columns:1fr;gap:8px}.pd-status{justify-self:start}.pd-stats{grid-template-columns:1fr}.pd-stat{padding:14px 16px}.pd-lower{grid-template-columns:1fr;gap:34px}.pd-footer{align-items:flex-start;flex-direction:column}.pd-contact{white-space:normal}}
+
 /* ══════════════════ RESPONSIVE ══════════════════ */
 @media(max-width:1024px){
   #nav,#nav.stuck{padding:22px 40px}
@@ -385,14 +423,30 @@ footer{background:var(--surf);border-top:1px solid var(--line);padding:32px 60px
 .consent{display:flex;gap:12px;align-items:flex-start;font-size:.78rem;line-height:1.6;color:var(--muted);cursor:pointer}
 .consent input{width:auto;margin-top:4px;flex-shrink:0;accent-color:var(--accent)}
 .consent a{color:var(--accent);text-decoration:underline}
-.fcard{display:grid;grid-template-columns:1fr 1.4fr;gap:1px;background:var(--line);border:1px solid var(--line)}
-.fc-left,.fc-right{background:var(--surf);padding:56px 52px;transition:background .3s}
-.fcard:hover .fc-left,.fcard:hover .fc-right{background:#101015}
-.fc-left{display:flex;flex-direction:column;justify-content:space-between;min-height:360px}
-.fc-ring{width:96px;height:96px;margin-bottom:0}
+.fcard{display:grid;grid-template-columns:1fr 1.4fr;gap:1px;position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(150,150,190,.22);background:#0b0b12;box-shadow:0 24px 80px rgba(0,0,0,.18)}
+/* Founder card — layered aurora, fine grid, editorial typography and a luminous edge */
+.fcard{border-radius:5px;background:#090a10;box-shadow:0 30px 100px rgba(0,0,0,.32),0 0 0 1px rgba(255,255,255,.025);transition:box-shadow .45s ease,border-color .45s ease}
+.fcard::before{content:"";position:absolute;inset:-38%;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 17% 22%,rgba(117,83,255,.34),transparent 31%),radial-gradient(ellipse at 78% 68%,rgba(34,211,238,.22),transparent 32%),radial-gradient(ellipse at 50% 110%,rgba(168,85,247,.17),transparent 40%),linear-gradient(125deg,#10111c 0%,#090a10 48%,#0d131a 100%);transform:translate3d(0,0,0) scale(1);transition:transform 1s cubic-bezier(.2,.7,.2,1),filter .8s ease}
+.fcard::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.23;background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(110deg,black,transparent 78%)}
+.fcard:hover{box-shadow:0 36px 110px rgba(0,0,0,.42),0 0 44px rgba(112,91,255,.11),0 0 0 1px rgba(150,140,255,.28)}
+.fcard:hover::before{transform:translate3d(2%, -1%, 0) scale(1.09) rotate(-2deg);filter:saturate(1.3)}
+.fc-left,.fc-right{position:relative;z-index:1;background:rgba(10,10,17,.34);padding:56px 52px;transition:background .35s}
+.fcard:hover .fc-left,.fcard:hover .fc-right{background:rgba(12,12,20,.23)}
+.fc-left{border-right:1px solid rgba(180,180,220,.14);display:flex;flex-direction:column;justify-content:space-between;min-height:390px;overflow:hidden}
+.fc-left::after{content:"AS";position:absolute;right:-14px;bottom:-60px;z-index:-1;font-family:var(--sans);font-size:clamp(10rem,20vw,18rem);font-weight:700;letter-spacing:-.12em;line-height:1;color:rgba(255,255,255,.035);pointer-events:none;transition:transform .65s ease,color .65s ease}
+.fcard:hover .fc-left::after{transform:translate(-8px,-6px);color:rgba(160,150,255,.075)}
+.fc-topline{display:flex;align-items:center;gap:10px;width:max-content;max-width:100%;font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:#d4d0ff;border:1px solid rgba(170,157,255,.25);background:rgba(104,86,255,.09);padding:9px 12px;border-radius:999px}
+.fc-topline::before{content:"";width:6px;height:6px;flex:none;border-radius:50%;background:#9c91ff;box-shadow:0 0 12px rgba(156,145,255,.9)}
+.fc-identity{position:relative;z-index:1}
+.fc-ring{width:96px;height:96px;margin-bottom:28px;position:relative;isolation:isolate;border:1px solid rgba(179,166,255,.42);box-shadow:0 0 0 7px rgba(147,130,255,.045),0 0 42px rgba(118,91,255,.19);background:linear-gradient(145deg,rgba(130,105,255,.2),rgba(30,208,220,.08))}
+.fc-ring::after{content:"";position:absolute;inset:-8px;border:1px solid rgba(147,130,255,.18);border-radius:50%;border-top-color:rgba(151,230,255,.7);transform:rotate(-35deg);transition:transform .7s ease}
+.fcard:hover .fc-ring::after{transform:rotate(145deg)}
 .fc-ring .m-init{font-size:1.3rem}
-.fc-name{font-family:var(--serif);font-size:clamp(2rem,3.4vw,3rem);font-weight:300;color:var(--white);line-height:1.1;margin-bottom:12px}
+.fc-name{font-family:var(--serif);font-size:clamp(2rem,3.4vw,3.15rem);font-weight:300;color:var(--white);line-height:1.05;letter-spacing:-.035em;margin-bottom:14px}
+.fc-name em{font-style:normal;background:linear-gradient(100deg,#fff 5%,#c9c0ff 48%,#9ceaf4 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .fc-right{display:flex;flex-direction:column;justify-content:center;gap:28px}
+.fc-kicker{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:#aaa0ff;display:flex;align-items:center;gap:12px}
+.fc-kicker::after{content:"";height:1px;max-width:72px;flex:1;background:linear-gradient(90deg,rgba(154,140,255,.6),transparent)}
 .fc-bio{font-size:.95rem;font-weight:300;color:var(--dim);line-height:1.9}
 .fc-right .op-tags{margin-top:0}
 .fc-links{display:flex;flex-wrap:wrap;gap:12px 32px;padding-top:26px;border-top:1px solid var(--line)}
@@ -401,7 +455,43 @@ footer{background:var(--surf);border-top:1px solid var(--line);padding:32px 60px
 @media(max-width:768px){
   .fcard{grid-template-columns:1fr}
   .fc-left,.fc-right{padding:36px 24px}
-  .fc-left{min-height:0;gap:36px}
+  .fc-left{min-height:0;gap:42px}
+  .fc-ring{margin-bottom:24px}
+  .fc-left::after{font-size:10rem;bottom:-34px}
+}
+
+/* ══════════════════ PROJECTS v2 ══════════════════ */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.pcard{background:var(--surf);padding:44px 40px;min-height:430px;display:flex;flex-direction:column;position:relative;overflow:hidden;cursor:pointer;transition:background .35s}
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .55s ease}
+.pcard:hover::before{transform:scaleX(1)}
+.pcard:hover{background:#141419}
+.pc-top{display:flex;justify-content:space-between;align-items:center}
+.pc-num{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;color:var(--muted)}
+.pc-status{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:#6ee7b7}
+.pc-status.dim{color:var(--muted)}
+.pc-body{margin-top:auto;padding-top:40px}
+.pc-type{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.pc-title{font-family:var(--serif);font-size:2.1rem;font-weight:300;color:var(--white);line-height:1.15;margin-bottom:14px}
+.pc-desc{font-size:.84rem;color:var(--muted);line-height:1.85;min-height:6.2em}
+.pcard .op-tags{margin-top:18px}
+.pc-foot{margin-top:28px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .25s}
+.pcard:hover .pc-foot{color:var(--white)}
+.pc-foot i{font-style:normal;transition:transform .3s}
+.pcard:hover .pc-foot i{transform:translateX(6px)}
+.pcard.cta .pc-title em{font-style:italic;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ptable{width:100%;max-width:760px;margin:28px auto 0;border:1px solid var(--line);border-top:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));background:var(--line);gap:1px}
+.pt-cell{background:var(--bg);padding:24px 28px;display:flex;flex-direction:column;gap:10px}
+.pt-l{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.pt-v{font-family:var(--serif);font-size:2.8rem;font-weight:300;color:var(--white);line-height:1}
+.pt-v small{font-size:1.4rem;color:var(--dim);margin-left:2px}
+@media(max-width:1024px){.proj-grid{grid-template-columns:1fr 1fr}.ptable{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  .proj-grid{grid-template-columns:1fr}
+  .pcard{min-height:340px;padding:34px 24px}
+  .pc-desc{min-height:0}
+  .pt-cell{padding:22px 20px}
+  .pt-v{font-size:2.2rem}
 }
 </style>
 </head>
@@ -512,30 +602,40 @@ footer{background:var(--surf);border-top:1px solid var(--line);padding:32px 60px
       <div><p class="eyebrow">Our work</p><h2 class="big-h">Projects.</h2></div>
       <button class="view-all-btn" id="openOverlay">View all projects <span class="gh-line"></span></button>
     </div>
-    <div class="proj-feature">
-      <div class="proj-main" id="projMain" onclick="openProjectsOverlay()">
-        <div><span class="proj-tag">Website · 2026 · Denmark</span></div>
-        <div class="proj-info">
-          <h3 class="proj-title">Krone VVS</h3>
-          <p class="proj-meta">Full website design and development<br>Delivered on time, on brief.</p>
-          <div class="proj-arrow" style="margin-top:24px">View project details <span class="gh-line" style="margin-left:4px"></span></div>
+    <div class="proj-grid">
+      <div class="pcard" role="button" tabindex="0" onclick="openProjectDetail('krone')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProjectDetail('krone')}">
+        <div class="pc-top"><span class="pc-num">01</span><span class="pc-status">● Live</span></div>
+        <div class="pc-body">
+          <p class="pc-type">Website · Full build · 2026</p>
+          <h3 class="pc-title">Krone VVS</h3>
+          <p class="pc-desc">Full design and development of a professional business website. Delivered on time, on brief.</p>
+          <div class="op-tags"><span class="op-pill">Design</span><span class="op-pill">Development</span><span class="op-pill">Responsive</span></div>
         </div>
-        <span class="proj-num">01</span>
+        <div class="pc-foot"><span>View details</span><i>→</i></div>
       </div>
-      <div class="proj-side">
-        <div class="proj-side-item" onclick="openProjectsOverlay()">
-          <span class="psi-label">Live now</span>
-          <div class="psi-title">Fynshovedgrill</div>
-          <p class="psi-sub">Grill &amp; minigolf on Fyn<br>Full website build, now live.</p>
-          <span class="coming-soon">2026 →</span>
+      <div class="pcard" role="button" tabindex="0" onclick="openProjectDetail('fynshoved')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProjectDetail('fynshoved')}">
+        <div class="pc-top"><span class="pc-num">02</span><span class="pc-status">● Live</span></div>
+        <div class="pc-body">
+          <p class="pc-type">Website · Full build · 2026</p>
+          <h3 class="pc-title">Fynshovedgrill</h3>
+          <p class="pc-desc">Grill &amp; minigolf on Fyn. A clean, fast website that is simple for guests to browse and easy for the owners to update.</p>
+          <div class="op-tags"><span class="op-pill">Design</span><span class="op-pill">Development</span><span class="op-pill">Responsive</span></div>
         </div>
-        <div class="proj-side-item" onclick="openProjectsOverlay()">
-          <span class="psi-label">Coming next</span>
-          <div class="psi-title">Your Project</div>
-          <p class="psi-sub">Ready to be number three?</p>
-          <a href="#contact" class="coming-soon" onclick="event.stopPropagation()">Get in touch →</a>
-        </div>
+        <div class="pc-foot"><span>View details</span><i>→</i></div>
       </div>
+      <a href="#contact" class="pcard cta">
+        <div class="pc-top"><span class="pc-num">03</span><span class="pc-status dim">○ Open</span></div>
+        <div class="pc-body">
+          <p class="pc-type">Your project · 2026</p>
+          <h3 class="pc-title">Ready to be <em>number three?</em></h3>
+          <p class="pc-desc">We're taking on new clients. If you need a website or webshop, let's talk.</p>
+        </div>
+        <div class="pc-foot"><span>Get in touch</span><i>→</i></div>
+      </a>
+    </div>
+    <div class="ptable" role="table" aria-label="Studio in numbers">
+      <div class="pt-cell" role="row"><span class="pt-l" role="columnheader">Websites delivered</span><span class="pt-v"><span class="pt-n" data-count="2">0</span></span></div>
+      <div class="pt-cell" role="row"><span class="pt-l" role="columnheader">Live today</span><span class="pt-v"><span class="pt-n" data-count="2">0</span></span></div>
     </div>
   </div>
 </section>
@@ -581,13 +681,14 @@ footer{background:var(--surf);border-top:1px solid var(--line);padding:32px 60px
     <div class="team-head"><p class="eyebrow">The founder</p><h2 class="big-h">Meet the person<br><em>behind it all.</em></h2></div>
     <div class="fcard">
       <div class="fc-left">
-        <div class="m-ring fc-ring"><span class="m-init">AS</span></div>
-        <div>
-          <h3 class="fc-name">Anders Standal</h3>
+        <div class="fc-identity">
+          <div class="m-ring fc-ring"><span class="m-init">AS</span></div>
+          <h3 class="fc-name"><em>Anders</em><br>Standal</h3>
           <p class="m-role">CEO · Lead Developer · Founder</p>
         </div>
       </div>
       <div class="fc-right">
+        <div class="fc-kicker">The person behind the pixels</div>
         <p class="fc-bio">Anders founded Nordic Interface in 2026 and designs and hand-codes every website himself — from first sketch to launch. No templates and no handovers: you work directly with the person building your site.</p>
         <div class="op-tags"><span class="op-pill">Web Design</span><span class="op-pill">Hand-coded Development</span><span class="op-pill">Webshops</span><span class="op-pill">Redesigns</span></div>
         <div class="fc-links">
@@ -628,12 +729,12 @@ footer{background:var(--surf);border-top:1px solid var(--line);padding:32px 60px
       <form class="form" id="contactForm">
         <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off"/>
         <div class="fg-row">
-          <div class="fg"><label>Name</label><input type="text" name="name" placeholder="Your name" required/></div>
-          <div class="fg"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required/></div>
+          <div class="fg"><label for="contact-name">Name</label><input id="contact-name" type="text" name="name" autocomplete="name" placeholder="Your name" required/></div>
+          <div class="fg"><label for="contact-email">Email</label><input id="contact-email" type="email" name="email" autocomplete="email" placeholder="your@email.com" required/></div>
         </div>
         <div class="fg">
-          <label>Service</label>
-          <select name="service">
+          <label for="contact-service">Service</label>
+          <select id="contact-service" name="service">
             <option value="">What do you need?</option>
             <option>New website</option>
             <option>Webshop</option>
@@ -641,7 +742,7 @@ footer{background:var(--surf);border-top:1px solid var(--line);padding:32px 60px
             <option>Not sure yet</option>
           </select>
         </div>
-        <div class="fg"><label>Message</label><textarea name="message" placeholder="Tell us about your project…" required></textarea></div>
+        <div class="fg"><label for="contact-message">Message</label><textarea id="contact-message" name="message" autocomplete="off" placeholder="Tell us about your project…" required></textarea></div>
         <label class="consent"><input type="checkbox" name="consent" value="yes" required/><span>I have read the <a href="privatlivspolitik.html">privacy policy</a> (Danish) and agree that my details are used to reply to my enquiry.</span></label>
         <button class="f-submit" type="submit">Send message</button>
         <p class="f-note" id="fNote"></p>
@@ -672,7 +773,7 @@ footer{background:var(--surf);border-top:1px solid var(--line);padding:32px 60px
       <p>We're a new studio. Two projects delivered, more on the way. Every single one matters to us.</p>
     </div>
     <div class="ov-grid">
-      <div class="ov-proj">
+      <div class="ov-proj" data-project="krone" role="button" tabindex="0" onclick="openProjectDetail('krone')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProjectDetail('krone')}">
         <div class="op-num">01</div>
         <div class="op-info">
           <p class="op-tag">Website · Full Build · 2026</p>
@@ -682,7 +783,7 @@ footer{background:var(--surf);border-top:1px solid var(--line);padding:32px 60px
         </div>
         <div class="op-right"><p class="op-year">2026</p><p class="op-status live">● Live</p></div>
       </div>
-      <div class="ov-proj">
+      <div class="ov-proj" data-project="fynshoved" role="button" tabindex="0" onclick="openProjectDetail('fynshoved')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProjectDetail('fynshoved')}">
         <div class="op-num">02</div>
         <div class="op-info">
           <p class="op-tag">Website · Full Build · 2026</p>
@@ -711,6 +812,20 @@ footer{background:var(--surf);border-top:1px solid var(--line);padding:32px 60px
         </div>
         <div class="op-right"><p class="op-year" style="color:var(--white)">→</p><p class="op-status">Get in touch</p></div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT DETAIL MODAL -->
+<div id="project-detail" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pd-title">
+  <div class="pd-panel">
+    <div class="pd-top"><span class="pd-kicker">Nordic Interface <span style="color:var(--accent)">/</span> Case study</span><button class="pd-close" id="pd-close">Close <span class="ov-x"></span></button></div>
+    <div class="pd-main">
+      <div class="pd-heading"><div><p class="pd-label" id="pd-type">Website · Full build · 2026</p><h2 class="pd-title" id="pd-title">Project name</h2><p class="pd-summary" id="pd-summary"></p></div><span class="pd-status">● Live project</span></div>
+      <div class="pd-stats"><div class="pd-stat"><span class="pd-label">Project type</span><strong id="pd-stat-type">Website</strong></div><div class="pd-stat"><span class="pd-label">Focus</span><strong id="pd-stat-focus">Design &amp; development</strong></div><div class="pd-stat"><span class="pd-label">Year</span><strong>2026</strong></div></div>
+      <section><p class="pd-label">The brief</p><h3 class="pd-section-title">Built around the business.</h3><p class="pd-copy" id="pd-brief"></p></section>
+      <div class="pd-lower"><section><p class="pd-label">How it came together</p><h3 class="pd-section-title">Project timeline.</h3><div class="pd-timeline" id="pd-timeline"></div></section><section><p class="pd-label">What went into it</p><h3 class="pd-section-title">Key features.</h3><p class="pd-copy" id="pd-features-copy"></p><div class="pd-features" id="pd-features"></div><div style="margin-top:34px"><p class="pd-label">The outcome</p><h3 class="pd-section-title" style="font-size:1.4rem">Made to work beautifully.</h3><p class="pd-copy" id="pd-outcome"></p></div></section></div>
+      <div class="pd-footer"><p>Have a project in mind?<br>Let's build something worth remembering.</p><a class="pd-contact" href="#contact" onclick="closeProjectDetail();setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),350)">Discuss a project <span>↗</span></a></div>
     </div>
   </div>
 </div>
@@ -811,7 +926,8 @@ rev('.body',     28, .8, .12);
 rev('.svc',      36, .8, .12, 3);
 rev('.step',     32, .8, .12, 4);
 rev('.fcard',    32, .9, .1, 1);
-rev('.proj-main, .proj-side-item', 32, .85, .12, 2);
+rev('.pcard', 32, .85, .12, 3);
+rev('.ptable', 24, .8, 0, 1);
 rev('.c-item',   16, .65, .1, 3);
 rev('.fg, .fg-row', 16, .65, .08, 4);
 
@@ -819,7 +935,7 @@ gsap.from('.cta-big', { opacity:0, y:64, duration:1.2, ease:'power3.out', scroll
 gsap.from(['.cta-sub','.cta-row'], { opacity:0, y:28, duration:.85, stagger:.16, ease:'power2.out', scrollTrigger:{ trigger:'#cta', start:'top 68%' } });
 
 /* ══════════════════ COUNT-UP STATS ══════════════════ */
-$$('.av-n').forEach(el=>{
+$$('.av-n, .pt-n').forEach(el=>{
   const target = +el.dataset.count;
   ScrollTrigger.create({
     trigger: el, start:'top 85%', once:true,
@@ -898,6 +1014,45 @@ initConstellation($('#heroCanvas'), { density:8500, linkDist:140, mouseLink:200,
 initConstellation($('#aboutCanvas'), { density:3500, linkDist:90, mouseLink:120, speed:.08 });
 initConstellation($('#ctaCanvas'), { density:9000, linkDist:120, mouseLink:160, speed:.12 });
 
+/* ══════════════════ PROJECT CASE STUDIES ══════════════════ */
+const detailModal = $('#project-detail');
+const projectCases = {
+  krone: {
+    name:'Krone VVS', type:'Website · Full build · 2026', projectType:'Business website', focus:'Design & development',
+    summary:'A professional online presence designed to make it easier for customers to understand the business, explore its services and take the next step.',
+    brief:'The goal was to give Krone VVS a clear, professional website that presents the company with confidence. The experience was designed around clarity, straightforward navigation and a responsive layout that works across screen sizes.',
+    timeline:[['01','Planning & structure','Defined the key information visitors need and organised it into a clear page structure.'],['02','Visual design','Created a cohesive visual direction with readable typography, clear hierarchy and a professional feel.'],['03','Development','Built the website and refined the layout for desktop, tablet and mobile screens.'],['04','Launch & handover','Prepared the finished website for launch and checked the key pages and interactions.']],
+    features:['Custom design','Responsive layout','Clear service presentation','SEO-ready structure'],
+    featuresCopy:'The build focuses on a clean interface and a smooth path from first impression to finding the information a potential customer needs.',
+    outcome:'A polished, mobile-friendly website that gives the business a stronger digital first impression and makes its core information easier to find.'
+  },
+  fynshoved: {
+    name:'Fynshoved Grill & Minigolf', type:'Website · Full build · 2026', projectType:'Hospitality website', focus:'Visitor experience',
+    summary:'A welcoming, easy-to-browse website for a grill and minigolf destination on Fyn, designed to help visitors quickly get a feel for the place.',
+    brief:'The website needed to make the destination feel approachable while keeping practical information easy to find. The design balances a friendly atmosphere with simple navigation so guests can browse the offer without friction.',
+    timeline:[['01','Content & priorities','Organised the essential visitor information and identified the most useful things to surface first.'],['02','Design direction','Created a welcoming visual style suited to a local destination and family-friendly experience.'],['03','Website build','Developed the pages with responsive layouts and clear navigation across devices.'],['04','Launch preparation','Checked the main visitor journey and prepared the site for the owners to share with customers.']],
+    features:['Responsive design','Visitor-first layout','Clear navigation','Easy-to-browse information'],
+    featuresCopy:'The site puts usability first, with a straightforward structure that helps guests explore the destination and find relevant details quickly.',
+    outcome:'A clean digital front door for the business that is easy to browse on mobile and desktop, with a friendly feel that fits the destination.'
+  }
+};
+function openProjectDetail(key){
+  const item=projectCases[key]; if(!item) return;
+  $('#pd-title').textContent=item.name; $('#pd-type').textContent=item.type;
+  $('#pd-summary').textContent=item.summary; $('#pd-stat-type').textContent=item.projectType;
+  $('#pd-stat-focus').textContent=item.focus; $('#pd-brief').textContent=item.brief;
+  $('#pd-features-copy').textContent=item.featuresCopy; $('#pd-outcome').textContent=item.outcome;
+  $('#pd-timeline').innerHTML=item.timeline.map(step=>`<div class="pd-phase"><span class="pd-dot">${step[0]}</span><div><h4>${step[1]}</h4><p>${step[2]}</p></div></div>`).join('');
+  $('#pd-features').innerHTML=item.features.map(feature=>`<span class="pd-feature">${feature}</span>`).join('');
+  detailModal.classList.add('open'); detailModal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+  setTimeout(()=>$('#pd-close').focus(),50);
+  if(overlayOpen) closeOverlay();
+}
+function closeProjectDetail(){detailModal.classList.remove('open');detailModal.setAttribute('aria-hidden','true');document.body.style.overflow=overlayOpen?'hidden':'';}
+window.openProjectDetail=openProjectDetail; window.closeProjectDetail=closeProjectDetail;
+$('#pd-close').addEventListener('click',closeProjectDetail);
+detailModal.addEventListener('click',e=>{if(e.target===detailModal) closeProjectDetail();});
+
 /* ══════════════════ PROJECTS OVERLAY ══════════════════ */
 const overlay = $('#proj-overlay');
 let overlayOpen = false;
@@ -917,7 +1072,7 @@ window.openProjectsOverlay = openProjectsOverlay;
 window.closeOverlay = closeOverlay;
 $('#openOverlay').addEventListener('click', openProjectsOverlay);
 $('#closeOverlay').addEventListener('click', closeOverlay);
-document.addEventListener('keydown', e => { if(e.key==='Escape' && overlayOpen) closeOverlay(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape' && detailModal.classList.contains('open')) closeProjectDetail(); else if(e.key==='Escape' && overlayOpen) closeOverlay(); });
 
 /* ══════════════════ CONTACT FORM → FORMSPREE ══════════════════ */
 const form = $('#contactForm');
