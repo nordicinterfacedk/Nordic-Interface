@@ -685,6 +685,7 @@ footer .social{margin-top:.9rem;gap:1.2rem}
 
     <h3>Dit valg</h3>
     <p>Du kan til enhver tid ændre eller trække dit valg tilbage ved at klikke på "Cookie-indstillinger" nederst på siden.</p>
+    <p><button type="button" class="btn cookie-open">Ændr dit valg</button></p>
 
     <h3>Eksterne ressourcer</h3>
     <p>Hjemmesiden indlæser skrifttyper fra Google Fonts og nogle billeder fra Unsplash. Vi sætter ikke selv cookies i den forbindelse, men udbyderne modtager din IP-adresse, når din browser henter indholdet. Læs mere i vores <a href="#/privatliv">privatlivspolitik</a>, punkt 5. [Opdatér, hvis skrifttyper og billeder flyttes til eget domæne.]</p>
@@ -884,6 +885,9 @@ form.addEventListener('submit',async e=>{
   s.textContent='Dit mailprogram åbnes. Send mailen derfra.';
 });
 
+
+</script>
+<script>
 /* ---- Cookiesamtykke ---- */
 (function(){
   const KEY='ni-consent',DAYS=365,box=document.getElementById('cookie-banner');
@@ -898,7 +902,7 @@ form.addEventListener('submit',async e=>{
   if(!first)setTimeout(()=>show(false),700);
   document.getElementById('cookie-accept').addEventListener('click',()=>{apply(save(true));hide()});
   document.getElementById('cookie-decline').addEventListener('click',()=>{apply(save(false));hide()});
-  document.getElementById('cookie-open').addEventListener('click',()=>show(true));
+  document.querySelectorAll('#cookie-open,.cookie-open').forEach(b=>b.addEventListener('click',()=>show(true)));
 })();
 </script>
 </body>
